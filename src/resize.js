@@ -2,7 +2,13 @@ import sharp from "sharp";
 import printUsage from "./printUsage.js";
 
 
-
+/**
+ * Resizes an image file to the given dimensions.
+ * @param {string} inputFile - The path to the input image file.
+ * @param {number} width - The desired width of the output image.
+ * @param {number} [height] - The desired height of the output image. If not provided, the aspect ratio will be maintained.
+ * @returns {Promise<Buffer>} - A Promise that resolves with the resized image as a Buffer.
+ */
 export default function resize(inputFile, width, height) {
 
       //get given dimensions
