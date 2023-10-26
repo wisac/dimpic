@@ -1,0 +1,25 @@
+{
+  "name": "dimpic",
+  "version": "1.0.0",
+  "description": "A command line tool for resizing images",
+  "main": "app.js",
+  "type": "module",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+    
+  },
+  "author": "Isaac Wilson",
+  "license": "MIT",
+  "dependencies": {
+    "imagemin": "^8.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "sharp": "^0.32.6",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
