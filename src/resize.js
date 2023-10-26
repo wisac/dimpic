@@ -2,7 +2,6 @@ import sharp from "sharp";
 import printUsage from "./printUsage.js";
 
 export default function resize(inputFile, width, height) {
-   
    //get given dimensions
    const size = width && height ? [width, height] : [width];
 
