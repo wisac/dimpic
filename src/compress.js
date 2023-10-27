@@ -8,18 +8,20 @@ import imageminPngquant from "imagemin-pngquant";
  * @param {number} quality - The quality of the compressed image. Should be between 0 and 100.
  * @returns {Promise<Buffer>} - The compressed image buffer.
  */
+
 export default async function compress(imageBuffer, quality) {
    const options =
-      quality === "undefined"
+      quality === undefined
          ? [imageminMozjpeg({}), imageminPngquant({})]
          : [
-              imageminMozjpeg({
-                 quality: quality,
-              }),
-              imageminPngquant({
-                 quality: quality,
-              }),
-           ];
+            imageminMozjpeg({
+               quality: quality,
+            }),
+            imageminPngquant({
+               speed: Math.floor(quality / 10) + 1,
+               // quality: [0, quality/100]
+            }),
+         ];
 
    try {
       console.log("Compressing Image...");
