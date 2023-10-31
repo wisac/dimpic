@@ -4,7 +4,7 @@ import yargs from "yargs";
 const argv = yargs(process.argv.slice(2)).argv;
 
 const { q, quality, d, dest, w, width, h, height } = argv;
-const currentPath = argv.$0
+const currentPath = argv.$0;
 const files = argv._;
 
 const inputInfo = {
@@ -16,64 +16,57 @@ const inputInfo = {
    width,
    h,
    height,
-
+   files,
    currentPath,
    currentDir: path.resolve(path.dirname(currentPath)), //async
    destDir: path.resolve(path.dirname(currentPath)),
    fileName:
-      path.basename(currentPath, path.extname(currentPath)) + "_dim" + path.extname(currentPath),
+      path.basename(currentPath, path.extname(currentPath)) +
+      "_dim" +
+      path.extname(currentPath),
    // defaultFileName: setDefaultFileName(),
 
    //set destination direction of output file no filenames
    setDestDir() {
-
       console.log("dirname setter");
-      if (d) this.destDir = path.resolve(path.dirname(d));
+      if (d)
+         if (path.extname(path.resolve(d))) {
+            this.destDir = path.resolve(path.dirname(d));
+            console.log("setting dir with extension");
+         } else {
+            this.destDir = path.resolve(d);
+         }
    },
 
-   // set file name and extension dir excluded
+   // sets file name and extension dir excluded
    setFileName() {
       console.log("filename setter");
-      if (d) this.fileName = path.basename(path.resolve(d));
-    
-      //TO DO
-      /**only directory is specified no output file name therefore check if basename has extension*/
-   },
 
+      if (d) {
+         if (path.extname(path.resolve(d))) {
+            this.fileName = path.basename(path.resolve(d));
+            console.log("here");
+         }
+      }
+   },
 
    getFileName() {
-      this.setFileName()
-      return this.fileName
+      this.setFileName();
+      return this.fileName;
    },
-
 
    getDest() {
       this.setDestDir();
       return this.destDir;
-   }
-}
+   },
+};
 
-console.log("destination = ", inputInfo.getDest())
-console.log(inputInfo.currentDir)
-console.log("filename = ",inputInfo.fileName);
+console.log("destination dir = ", inputInfo.getDest());
+console.log("current dir =", inputInfo.currentDir);
+console.log("filename = ", inputInfo.fileName);
 console.log("gettingFilename = ", inputInfo.getFileName());
-console.log()
 
-
-
-// const currentDir = argv.$0
-// const files = argv._;
-
-// console.log('height: ', height);
-// console.log('h: ', h);
-// console.log('width: ', width);
-// console.log('w: ', w);
-// console.log('dest: ', dest);
-// console.log('d: ', d);
-// console.log('quality: ', quality);
-// console.log('q: ', q);
-
-console.log(argv);
+// console.log(argv);
 
 //to specify a manual filename, use -d destination/filename
 
@@ -82,3 +75,5 @@ console.log(argv);
 // if arg type is invalid, display usage and mention arg type with arg types
 
 // how to get determine values to be passed. if
+
+export default  inputInfo ;
