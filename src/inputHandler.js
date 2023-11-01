@@ -25,11 +25,13 @@ const inputInfo = {
    currentDir: path.resolve(path.dirname(currentPath)), //async
    destDir: path.resolve(path.dirname(currentPath)),
    fileName:
-      path.basename(currentPath, path.extname(currentPath)) +
+      path.basename(
+         path.resolve(files[0]),
+         path.extname(path.resolve(files[0]))
+      ) +
       "_dim" +
-      path.extname(currentPath),
+      path.extname(path.resolve(files[0])),
 
-   
    //set destination directory
    setDestDir() {
       console.log("dirname setter");
@@ -55,8 +57,8 @@ const inputInfo = {
    },
 
    outputName() {
-    return this.getDest() + "/" + this.getFileName()
-},
+      return this.getDest() + "/" + this.getFileName();
+   },
 
    //get output filename
    getFileName() {
@@ -77,7 +79,6 @@ const inputInfo = {
 
    // get input quality value
    getQuality() {
-
       return this._flags.quality;
    },
 
@@ -91,8 +92,6 @@ const inputInfo = {
       return this._flags.height;
    },
 };
-
-
 
 console.log("destination dir = ", inputInfo.getDest());
 console.log("current dir =", inputInfo.currentDir);
