@@ -1,6 +1,7 @@
 import path from "path";
 import yargs from "yargs";
 
+
 const argv = yargs(process.argv.slice(2)).argv;
 
 const currentPath = argv.$0;
@@ -45,58 +46,80 @@ const inputInfo = {
    },
 
    // sets output filename
-   setFileName() {
+   setFileName(file) {
       console.log("filename setter");
 
       if (this._flags.dest) {
          if (path.extname(path.resolve(this._flags.dest))) {
             this.fileName = path.basename(path.resolve(this._flags.dest));
             console.log("here");
+         } else {
+            if (files.length > 1) {
+              this.fileName = path.basename(
+                  path.resolve(file),
+                  path.extname(path.resolve(file))
+               ) +
+                  "_dim" +
+                  path.extname(path.resolve(file));
+            }
+         }
+      }
+      else {
+         if (files.length > 1) {
+            this.fileName =
+               path.basename(
+                  path.resolve(file),
+                  path.extname(path.resolve(file))
+               ) +
+               "_dim" +
+               path.extname(path.resolve(file));
          }
       }
    },
-
-   outputName() {
-      return this.getDest() + "/" + this.getFileName();
-   },
-
+   
    //get output filename
-   getFileName() {
-      this.setFileName();
+   getFileName(file) {
+      this.setFileName(file);
       return this.fileName;
    },
-
+   
    //get output destination
    getDest() {
       this.setDestDir();
       return this.destDir;
    },
-
+   
    //get input files
    getFiles() {
       return this._files;
    },
-
+   
    // get input quality value
    getQuality() {
       return this._flags.quality;
    },
-
-   // get input width
-   getWidth() {
-      return this._flags.width;
+      // get input width
+      getWidth() {
+         return this._flags.width;
    },
-
+   
    //get input width
    getHeight() {
       return this._flags.height;
+   },
+
+   outputName(file) {
+      return this.getDest() + "/" + this.getFileName(file);
    },
 };
 
 console.log("destination dir = ", inputInfo.getDest());
 console.log("current dir =", inputInfo.currentDir);
 console.log("filename = ", inputInfo.fileName);
-console.log("gettingFilename = ", inputInfo.getFileName());
+files.forEach(element => {
+   console.log("new filename",inputInfo.outputName(element))
+});
+// console.log("gettingFilename = ", inputInfo.getFileName());
 
 //to specify a manual filename, use -d destination/filename
 
