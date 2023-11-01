@@ -17,10 +17,11 @@ function validFlags() {
    };
 }
 
+// An input object
 const inputInfo = {
    _flags: Object.create(validFlags()),
-
    _files: files,
+
    currentDir: path.resolve(path.dirname(currentPath)), //async
    destDir: path.resolve(path.dirname(currentPath)),
    fileName:
@@ -28,6 +29,7 @@ const inputInfo = {
       "_dim" +
       path.extname(currentPath),
 
+   
    //set destination directory
    setDestDir() {
       console.log("dirname setter");
@@ -52,10 +54,13 @@ const inputInfo = {
       }
    },
 
+   outputName() {
+    return this.getDest() + "/" + this.getFileName()
+},
+
    //get output filename
    getFileName() {
       this.setFileName();
-      console.log("height", this.h, this.height);
       return this.fileName;
    },
 
@@ -65,20 +70,29 @@ const inputInfo = {
       return this.destDir;
    },
 
+   //get input files
    getFiles() {
       return this._files;
    },
 
+   // get input quality value
    getQuality() {
+
       return this._flags.quality;
    },
+
+   // get input width
    getWidth() {
       return this._flags.width;
    },
+
+   //get input width
    getHeight() {
       return this._flags.height;
    },
 };
+
+
 
 console.log("destination dir = ", inputInfo.getDest());
 console.log("current dir =", inputInfo.currentDir);
