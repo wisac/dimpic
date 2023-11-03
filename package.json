@@ -1,7 +1,7 @@
 {
   "name": "dimpic",
   "version": "1.0.0",
-  "description": "A command line tool for resizing images",
+  "description": "A command line tool for resizing image image dimensions and file size",
   "main": "app.js",
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
   "author": "Isaac Wilson",
   "license": "MIT",
   "dependencies": {
+    "commander": "^11.1.0",
     "imagemin": "^8.0.1",
     "imagemin-mozjpeg": "^10.0.0",
     "imagemin-pngquant": "^9.0.2",
