@@ -46,25 +46,26 @@ function inputHandler() {
    const files = program.args
    const options = program.opts();
 
+
    //if no input given
    if (files.length < 1) {
       //call usage
-      process.exit
+      
    }
 
-   // if no options are provided (flags)
-   if (Object.keys(options).length < 1) {
-      //compress image with default options
+   return {
+      files,options
    }
-
-   
-
 }
 
 // program.command()
 
 program.option("-d, --dest <path>", "Output of file");
 program.option("-h, --height <number>", "height of image");
+program.option("-w, --width <number>", "width of image")
+program.option("-q, --quality <number>", "quality of image")
+
+
 
 program.parse();
 // const loc =program.nameFromFilename(process.argv[1])
@@ -72,6 +73,8 @@ program.parse();
 // program.args.forEach((el) => {
 //    console.log("output", getName(el));
 // });
-
 // console.log(program.args);
-console.log(program.opts());
+// console.log(program.opts().dest);
+
+export { getName }
+export {inputHandler}
