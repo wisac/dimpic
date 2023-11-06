@@ -10,6 +10,7 @@ import imageminPngquant from "imagemin-pngquant";
  */
 
 export default async function compress(imageBuffer, quality) {
+   if(!imageBuffer instanceof Buffer) return
    const options =
       quality === undefined
          ? [imageminMozjpeg({}), imageminPngquant({})]
@@ -30,7 +31,7 @@ export default async function compress(imageBuffer, quality) {
       });
    } catch (err) {
       console.log(
-         "Error: Invalid file or quality\nQuality should be between 0 and 100"
+         "Error: Invalid input file"
       );
    }
 }

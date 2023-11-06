@@ -15,15 +15,17 @@ export default function resize(inputFile, width, height) {
    // check if file is given
    if (!inputFile) {
       printUsage();
+      return;
       // throw new Error("Missing input file");
    }
 
    // if no dimensions are given, return original file
    if (!width && !height) {
+       console.log("Optimizing...");
       return sharp(inputFile).toBuffer();
    }
 
-   console.log("Resizing...");
+   console.log("Optimizing...");
    // resize and return buffer
    return sharp(inputFile)
       .resize(...size)

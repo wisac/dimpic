@@ -1,13 +1,11 @@
 import path from "path";
 import yargs from "yargs";
 
-
-
 const argv = yargs(process.argv.slice(2)).argv;
 
 const currentPath = argv.$0;
 const files = argv._;
-const { q, quality, d, dest, w, width, h, height, help } = argv;
+const { q, quality, d, out, w, width, h, height, help } = argv;
 
 // function helpArg() {
 //    if (argv.help) {
@@ -16,8 +14,8 @@ const { q, quality, d, dest, w, width, h, height, help } = argv;
 //    return false;
 // }
 
-const arg = yargs.command("help", "help function").describe("help").argv
-console.log(arg)
+const arg = yargs.command("help", "help function").describe("help").argv;
+console.log(arg);
 
 function argsValid() {
    for (const prop in argv) {
@@ -27,7 +25,7 @@ function argsValid() {
          prop !== "q" &&
          prop !== "quality" &&
          prop !== "d" &&
-         prop !== "dest" &&
+         prop !== "out" &&
          prop !== "w" &&
          prop !== "width" &&
          prop !== "h" &&
@@ -40,18 +38,17 @@ function argsValid() {
    }
 
    if (files.length < 1) {
-      return false
+      return false;
    }
 
    return true;
 }
 
-
 console.log(argv);
 function validFlags() {
    return {
       quality: quality !== undefined ? quality : q,
-      dest: dest !== undefined ? dest : d,
+      out: out !== undefined ? out : d,
       width: width !== undefined ? width : w,
       height: height !== undefined ? height : h,
       help: help,
@@ -64,7 +61,7 @@ const inputInfo = {
    _files: files,
 
    currentDir: path.resolve(path.dirname(currentPath)), //async
-   destDir: path.resolve(path.dirname(currentPath)),
+   outDir: path.resolve(path.dirname(currentPath)),
    fileName:
       path.basename(
          path.resolve(files[0]),
@@ -74,14 +71,14 @@ const inputInfo = {
       path.extname(path.resolve(files[0])),
 
    //set destination directory
-   setDestDir() {
+   setOutDir() {
       console.log("dirname setter");
-      if (this._flags.dest)
-         if (path.extname(path.resolve(this._flags.dest))) {
-            this.destDir = path.resolve(path.dirname(this._flags.dest));
+      if (this._flags.out)
+         if (path.extname(path.resolve(this._flags.out))) {
+            this.outDir = path.resolve(path.dirname(this._flags.out));
             console.log("setting dir with extension");
          } else {
-            this.destDir = path.resolve(this._flags.dest);
+            this.outDir = path.resolve(this._flags.out);
          }
    },
 
@@ -89,9 +86,9 @@ const inputInfo = {
    setFileName(file) {
       console.log("filename setter");
 
-      if (this._flags.dest) {
-         if (path.extname(path.resolve(this._flags.dest))) {
-            this.fileName = path.basename(path.resolve(this._flags.dest));
+      if (this._flags.out) {
+         if (path.extname(path.resolve(this._flags.out))) {
+            this.fileName = path.basename(path.resolve(this._flags.out));
             console.log("here");
          } else {
             if (files.length > 1) {
@@ -123,10 +120,10 @@ const inputInfo = {
       return this.fileName;
    },
 
-   //get output destination
-   getDest() {
-      this.setDestDir();
-      return this.destDir;
+   //get output outination
+   getOut() {
+      this.setOutDir();
+      return this.outDir;
    },
 
    //get input files
@@ -149,11 +146,11 @@ const inputInfo = {
    },
 
    outputName(file) {
-      return this.getDest() + "/" + this.getFileName(file);
+      return this.getOut() + "/" + this.getFileName(file);
    },
 };
 
-console.log("destination dir = ", inputInfo.getDest());
+console.log("destination dir = ", inputInfo.getOut());
 console.log("current dir =", inputInfo.currentDir);
 console.log("filename = ", inputInfo.fileName);
 files.forEach((element) => {
@@ -161,7 +158,7 @@ files.forEach((element) => {
 });
 // console.log("gettingFilename = ", inputInfo.getFileName());
 
-//to specify a manual filename, use -d destination/filename
+//to specify a manual filename, use -o destination/filename
 
 // defined values are the ones going to be used.
 // if an arg is not part of the specified args, display usage
