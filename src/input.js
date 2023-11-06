@@ -1,6 +1,7 @@
 import { Command } from "commander";
 import path from "path";
-
+import fs from "fs"
+import { optDescription } from "./getHelp.js";
 // create a command instant
 const program = new Command();
 
@@ -58,23 +59,31 @@ function inputHandler() {
    }
 }
 
-// program.command()
+const packageJson = JSON.parse(fs.readFileSync("package.json", "utf-8"));
+const appVersion = packageJson.version
 
-program.option("-d, --dest <path>", "Output of file");
-program.option("-h, --height <number>", "height of image");
-program.option("-w, --width <number>", "width of image")
-program.option("-q, --quality <number>", "quality of image")
+program
+   .name("dimpic");
+//   program.description("A CLI tool to resize and compress images")
+   program.usage("<input-image...> [options]");
+
+program.version("ver: "+appVersion)
+program.option("-d, --dest <path>", optDescription.dest);
+program.option("-h, --height <number>",optDescription.height);
+program.option("-w, --width <number>", optDescription.width)
+program.option("-q, --quality <number>", optDescription.quality);
+program.argument("<input-image...>", "Image to be resized (.jpg and .png format only) ")
+program.addHelpText("beforeAll", `\ndimpic ver ${appVersion}\nA CLI tool to resize and compress images\n`)
+program.addHelpText("afterAll", optDescription.examples);
+program.addHelpText("afterAll", `For more info or bug reporting, please see: \nIsaac Wilson,\nhttps://gitbub.com/wisac\n`)
+program.showSuggestionAfterError(true);
+program.showHelpAfterError("For help on how to use dimpic, use the --help flag")
+
+
 
 
 
 program.parse();
-// const loc =program.nameFromFilename(process.argv[1])
-
-// program.args.forEach((el) => {
-//    console.log("output", getName(el));
-// });
-// console.log(program.args);
-// console.log(program.opts().dest);
 
 export { getName }
 export {inputHandler}
