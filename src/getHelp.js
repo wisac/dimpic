@@ -1,39 +1,21 @@
-function printUsage() {
-   console.log(
-      "Error: Invalid arguments. You can run dimpic --help for more info\n"
-   );
-   console.log("USAGE:\n\n    dimpic <input_image> <options>\n");
-   console.log("OPTIONS:\n");
-   console.log(
-      "    -q, --quality      :  Specify the quality of output image relative to input image (0 - 100)"
-   );
-   console.log(
-      "    -o, --out         :  Specify the destination of output image (Any valid path. If file exist, it will be replaced). By default active directory is used as output destination."
-   );
+/**
+ * @file This file contains the optDescription object.
+ * @summary This module provides help information for the dimpic command line tool.
+ * @description The optDescription object provides descriptions for the available options.
+ * @exports optDescription
+ */
 
-   console.log(
-      "                          Also used when you want to set name for the output file. Otherwise default output name will be used. (inputName_dim)"
-   );
-   console.log(
-      "    -w, --width        :  Specify the width of output image (NB: Only use this if you want to change dimension of output image)"
-   );
-   console.log(
-      "    -h, --height       :  Specify the height of output image(NB: Only use this if you want to change dimension of output image)"
-   );
-   console.log("    -v, --version      :  Show program version)");
-   console.log("        --help,        :  Display help menu(this menu)");
 
-   console.log("\nEXAMPLES:\n");
-   console.log("    dimpic img.jpg");
-   console.log("    dimpic  photo.jpg  -q  40  -o  ~/Desktop/");
-   console.log(
-      "    dimpic  pic1.png  pic2.jpg  pic3.jpg  -o  /home/username/Document/"
-   );
-   console.log(
-      "    dimpic  photo2.png  --width=1024  -h  720   --out ./new/my_photo.jpg\n\n"
-   );
-}
-
+/**
+ * Object containing descriptions for the available options.
+ * @typedef {Object} OptDescription
+ * @property {string} quality - Description for the quality option.
+ * @property {string} out - Description for the out option.
+ * @property {string} width - Description for the width option.
+ * @property {string} height - Description for the height option.
+ * @property {string} examples - Examples for using the dimpic command line tool.
+ * 
+ */
 const optDescription = {
    quality:
       "Specify the quality of output image relative to input image (0 - 100)%",
@@ -51,5 +33,3 @@ const optDescription = {
 };
 
 export { optDescription, printUsage };
-
-// Object.values(optDescription).forEach(key => { console.log(key); })

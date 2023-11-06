@@ -14,9 +14,7 @@ export default function resize(inputFile, width, height) {
 
    // check if file is given
    if (!inputFile) {
-      printUsage();
       return;
-      // throw new Error("Missing input file");
    }
 
    // if no dimensions are given, return original file
@@ -31,3 +29,4 @@ export default function resize(inputFile, width, height) {
       .resize(...size)
       .toBuffer();
 }
+

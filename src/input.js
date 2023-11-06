@@ -1,3 +1,11 @@
+/**
+ * This module exports two variables: getName and inputData.
+ * getName function generates path for output file based on the input file name and options.
+ * inputData contains two properties: files and options.
+ * files is an array of input image files.
+ * options is an object containing the parsed options from the command line.
+ * @module inputParser
+ */
 import path from "path";
 import fs from "fs";
 
@@ -7,9 +15,60 @@ import { optDescription } from "./getHelp.js";
 // create a command instant
 const program = new Command();
 
+// app information
+const packageJson = JSON.parse(fs.readFileSync("package.json", "utf-8"));
+const appVersion = packageJson.version;
+const author = packageJson.author;
+const githubUrl = "https://gitbub.com/wisac";
 
-function getName(file) {
+// Arguments configuration
+program.name("dimpic");
+program.usage("<input-image...> [options]");
+program.version("ver: " + appVersion);
+program.option("-o, --out <path>", optDescription.out);
+program.option("-h, --height <number>", optDescription.height);
+program.option("-w, --width <number>", optDescription.width);
+program.option("-q, --quality <number>", optDescription.quality);
 
+program.argument(
+   "<input-image...>",
+   "Image to be resized (.jpg and .png format only) "
+);
+program.addHelpText(
+   "beforeAll",
+   `\ndimpic ver. ${appVersion}\nA CLI tool to resize and compress images\n`
+);
+program.addHelpText("afterAll", optDescription.examples);
+program.addHelpText(
+   "afterAll",
+   `For more info or bug reporting, please see: \n${author},\n${githubUrl}\n`
+);
+program.showSuggestionAfterError(true);
+program.showHelpAfterError(
+   "For help on how to use dimpic, use the --help flag"
+);
+
+//parse arguments
+program.parse();
+
+/**
+ * Object containing parsed input data.
+ * @typedef {Object} ParsedInput
+ * @property {string[]} files - An array of file paths.
+ * @property {Object} options - An object containing parsed command line options.
+ */
+const parsedInput = {
+   files: program.args,
+   options: program.opts(),
+};
+Object.freeze(parsedInput);
+
+/**
+ * Generates path for output file
+ * @param {string} file Path to input file
+ * @returns {string} Path to output file
+ */
+function getOutputPath(file) {
    //total files to work on
    const totalFiles = program.args.length;
 
@@ -44,50 +103,5 @@ function getName(file) {
    return fileDestination;
 }
 
-function inputHandler() {
-   const files = program.args;
-   const options = program.opts();
-
-   return {
-      files,
-      options,
-   };
-}
-
-const packageJson = JSON.parse(fs.readFileSync("package.json", "utf-8"));
-const appVersion = packageJson.version;
-const author = packageJson.author
-const githubUrl = "https://gitbub.com/wisac"
-
-
-
-program.name("dimpic");
-program.usage("<input-image...> [options]");
-program.version("ver: " + appVersion);
-program.option("-o, --out <path>", optDescription.out);
-program.option("-h, --height <number>", optDescription.height);
-program.option("-w, --width <number>", optDescription.width);
-program.option("-q, --quality <number>", optDescription.quality);
-
-program.argument(
-   "<input-image...>",
-   "Image to be resized (.jpg and .png format only) "
-);
-program.addHelpText(
-   "beforeAll",
-   `\ndimpic ver. ${appVersion}\nA CLI tool to resize and compress images\n`
-);
-program.addHelpText("afterAll", optDescription.examples);
-program.addHelpText(
-   "afterAll",
-   `For more info or bug reporting, please see: \n${author},\n${githubUrl}\n`
-);
-program.showSuggestionAfterError(true);
-program.showHelpAfterError(
-   "For help on how to use dimpic, use the --help flag"
-);
-
-program.parse();
-
-export { getName };
-export { inputHandler };
+export { getOutputPath};
+export { parsedInput };

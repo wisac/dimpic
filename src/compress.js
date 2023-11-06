@@ -8,7 +8,6 @@ import imageminPngquant from "imagemin-pngquant";
  * @param {number} quality - The quality of the compressed image. Should be between 0 and 100.
  * @returns {Promise<Buffer>} - The compressed image buffer.
  */
-
 export default async function compress(imageBuffer, quality) {
    if(!imageBuffer instanceof Buffer) return
    const options =
@@ -35,3 +34,4 @@ export default async function compress(imageBuffer, quality) {
       );
    }
 }
+
