@@ -25,6 +25,10 @@
       "command line",
       "cli"
    ],
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/wisac/dimpic"
+   },
    "dependencies": {
       "commander": "^11.1.0",
       "imagemin": "^8.0.1",
