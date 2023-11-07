@@ -1,24 +1,38 @@
 {
-  "name": "dimpic",
-  "version": "1.0.0",
-  "description": "A command line tool for resizing image image dimensions and file size",
-  "main": "app.js",
-  "type": "module",
-  "scripts": {
-    "test": "jest",
-    "start": "nodemon app.js"
-  },
-  "author": "Isaac Wilson",
-  "license": "MIT",
-  "dependencies": {
-    "commander": "^11.1.0",
-    "imagemin": "^8.0.1",
-    "imagemin-mozjpeg": "^10.0.0",
-    "imagemin-pngquant": "^9.0.2",
-    "sharp": "^0.32.6",
-    "yargs": "^17.7.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  }
+   "name": "dimpic",
+   "version": "1.0.0",
+   "description": "A command line tool for resizing image dimensions and file size",
+   "main": "index.js",
+   "type": "module",
+   "scripts": {
+      "test": "jest",
+      "start": "node index.js"
+   },
+   "author": "Isaac Wilson",
+   "license": "MIT",
+   "keywords": [
+      "dimpic",
+      "image resize",
+      "compress",
+      "optimize image",
+      "image",
+      "resize",
+      "dimensions",
+      "compress image",
+      "command line tool",
+      "crop image",
+      "file size",
+      "command line",
+      "cli"
+   ],
+   "dependencies": {
+      "commander": "^11.1.0",
+      "imagemin": "^8.0.1",
+      "imagemin-mozjpeg": "^10.0.0",
+      "imagemin-pngquant": "^9.0.2",
+      "sharp": "^0.32.6"
+   },
+   "bin": {
+      "dimpic": "bin/index.js"
+   }
 }
