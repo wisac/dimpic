@@ -57,11 +57,8 @@ const start = () => {
       ? parseInt(options.height)
       : undefined;
 
-   console.log(options);
 
-   console.log("all files = ,", files);
 
-   console.log(quality, width, height);
 
    // start compression
    files.forEach((file) => {
@@ -84,12 +81,10 @@ const start = () => {
  */
 function qualityValid(quality) {
    if (quality === undefined) {
-      console.log("[quality undefined]");
       return true;
    }
 
    if (parseInt(quality) && quality >= 0 && quality <= 100) {
-      console.log("[quality is defined and number]");
       return true;
    }
 
