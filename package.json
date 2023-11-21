@@ -1,6 +1,6 @@
 {
    "name": "dimpic",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "description": "A command line tool for resizing image dimensions and file size",
    "main": "index.js",
    "type": "module",
