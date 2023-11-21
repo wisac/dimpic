@@ -1,0 +1,7 @@
+/images
+/test-images
+/screenshots
+.vscode
+*.jpeg
+*.jpg
+*.png
